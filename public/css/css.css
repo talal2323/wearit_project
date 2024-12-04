@@ -1,0 +1,40 @@
+.card {
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 18px;
+    margin: 0 10px;
+}
+
+.social-icons a:hover {
+    color: #bbb;
+}
+
+/* #footer-links {
+    margin-left: 25%;
+} */
+
+#link {
+    text-decoration: none;
+}
+
+#link:hover {
+    color: #bbb !important;
+    text-decoration: underline;
+}
+
+#email {
+    text-decoration: none;
+}
+
+#email:hover {
+    color: #bbb !important;
+    text-decoration: underline;
+}
