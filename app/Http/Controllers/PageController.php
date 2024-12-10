@@ -16,9 +16,15 @@ class PageController extends Controller
     // Change the about method to load the product page
     public function product()
     {
-        // Fetch products categorized as 'Men' and 'Women'
-        $menProducts = Product::where('category', 'Men')->get();
-        $womenProducts = Product::where('category', 'Women')->get();
+        // Fetch products whose category name is 'Men'
+        $menProducts = Product::whereHas('category', function($query) {
+            $query->where('name', 'Men'); // Filter by category name
+        })->get();
+    
+        // Fetch products whose category name is 'Women'
+        $womenProducts = Product::whereHas('category', function($query) {
+            $query->where('name', 'Women'); // Filter by category name
+        })->get();
     
         // Pass both categories of products to the view
         return view('product', compact('menProducts', 'womenProducts'));

@@ -5,6 +5,15 @@
 <section class="container my-5" style="margin-top: 80px;">
     <br>
 
+    <div class="search-bar-container" style="position: relative;">
+    <input type="text" id="search-bar" class="form-control" placeholder="Search by Name" autocomplete="off">
+    <ul id="search-results" class="dropdown-menu" style="position: absolute; width: 100%; z-index: 1000; display: none;">
+        <!-- Search results will appear here -->
+    </ul>
+</div>
+
+<br>
+
     <!-- Tabs for Men and Women Sections -->
     <ul class="nav nav-tabs" id="productTabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -99,4 +108,46 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('search-bar');
+    const menSection = document.getElementById('men-section');
+    const womenSection = document.getElementById('women-section');
+
+    // Listen for input in the search bar
+    searchInput.addEventListener('input', filterProducts);
+
+    // Function to filter products based on search term
+    function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        // Filter Men Products
+        const menProducts = menSection.querySelectorAll('.card');
+        menProducts.forEach(function (product) {
+            const productName = product.querySelector('.card-title').textContent.toLowerCase();
+            const productCategory = product.dataset.category ? product.dataset.category.toLowerCase() : ''; // If you have categories
+            if (productName.includes(searchTerm) || productCategory.includes(searchTerm)) {
+                product.style.display = 'block'; // Show product if it matches search term
+            } else {
+                product.style.display = 'none'; // Hide product if it does not match
+            }
+        });
+
+        // Filter Women Products
+        const womenProducts = womenSection.querySelectorAll('.card');
+        womenProducts.forEach(function (product) {
+            const productName = product.querySelector('.card-title').textContent.toLowerCase();
+            const productCategory = product.dataset.category ? product.dataset.category.toLowerCase() : ''; // If you have categories
+            if (productName.includes(searchTerm) || productCategory.includes(searchTerm)) {
+                product.style.display = 'block'; // Show product if it matches search term
+            } else {
+                product.style.display = 'none'; // Hide product if it does not match
+            }
+        });
+    }
+});
+</script>
+
+
 @endsection

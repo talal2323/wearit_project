@@ -8,10 +8,16 @@
             <label for="name">Product Name</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
-        <div class="form-group">
-            <label for="name">Product Category</label>
-            <input type="text" class="form-control" id="category" name="category" required>
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Category</label>
+            <select name="category_id" id="category_id" class="form-select">
+            <option value="" disabled selected>Select a category</option>
+          @foreach($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+          @endforeach
+            </select>
         </div>
+
         <div class="form-group">
             <label for="description">Description</label>
             <textarea class="form-control" id="description" name="description" required></textarea>
