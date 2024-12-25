@@ -1,6 +1,7 @@
     @extends('layouts.web')
 
     @section('content')
+    <br>
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -12,21 +13,21 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('images/Slider 3.jpg') }}" class="d-block w-100" alt="..." height="900px">
+                <img src="{{ asset('images/Slider 3.jpg') }}" class="d-block w-100" alt="..." height="750px">
                 <div class="carousel-caption d-none d-md-block">
                     <a href="{{ url('/product') }}"><button class="btn btn-primary" type="submit">Shop Now</button></a><br><br>
                     <p>"Discover Style Redefined - Elevate Your Wardrobe with WearIT's Trendiest Collection!"</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('images/Slider 2.jpg') }}" class="d-block w-100" alt="..." height="900px">
+                <img src="{{ asset('images/Slider 2.jpg') }}" class="d-block w-100" alt="..." height="750px">
                 <div class="carousel-caption d-none d-md-block">
                     <a href="{{ url('/product') }}"><button class="btn btn-primary" type="submit">Shop Now</button></a><br><br>
                     <p>"Discover Style Redefined - Elevate Your Wardrobe with WearIT's Trendiest Collection!"</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('images/Slider 1.jpg') }}" class="d-block w-100" alt="..." height="900px">
+                <img src="{{ asset('images/Slider.jpg') }}" class="d-block w-100" alt="..." height="750px">
                 <div class="carousel-caption d-none d-md-block">
                     <a href="{{ url('/product') }}"><button class="btn btn-primary" type="submit">Shop Now</button></a><br><br>
                     <p>"Discover Style Redefined - Elevate Your Wardrobe with WearIT's Trendiest Collection!"</p>

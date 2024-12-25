@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.navigation')
 @section('content')
 <div class="container">
     <h1>Add New Product</h1>
