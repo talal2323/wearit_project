@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\API\ProductApiController;
+
 
 Route::get('/', [PageController::class, 'index']);       // Home route
 Route::get('/product', [PageController::class, 'product']);  // Product page route
@@ -36,6 +38,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductApiController::class, 'index']);
+    Route::post('/', [ProductApiController::class, 'store']);
+    Route::get('/{id}', [ProductApiController::class, 'show']);
+    Route::put('/{id}', [ProductApiController::class, 'update']);
+    Route::delete('/{id}', [ProductApiController::class, 'destroy']);
+    Route::post('/filter', [ProductApiController::class, 'filter']);
+});
 
 
 Route::middleware('auth')->group(function () {

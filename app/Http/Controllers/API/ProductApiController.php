@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Services\ProductService;
+namespace App\Http\Controllers\API;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Services\ProductService;
 
-class ProductController extends Controller
+class ProductApiController extends Controller
 {
     protected $productService;
 
@@ -15,12 +14,18 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+    /**
+     * Fetch all products.
+     */
     public function index()
     {
         $products = $this->productService->getAllProducts();
-        return view('products.index', compact('products'));
+        return response()->json($products);
     }
 
+    /**
+     * Store a new product.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -32,23 +37,22 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        $this->productService->createProduct($validated);
-        return redirect()->route('admin.products.index')->with('success', 'Product added successfully!');
+        $product = $this->productService->createProduct($validated);
+        return response()->json(['message' => 'Product created successfully!', 'product' => $product], 201);
     }
 
-    public function create()
-    {
-        $categories = Category::all(); // Fetch categories for the dropdown
-        return view('products.create', compact('categories'));
-    }
-
-    public function edit($id)
+    /**
+     * Fetch a specific product by ID.
+     */
+    public function show($id)
     {
         $product = $this->productService->getProductById($id);
-        $categories = Category::all();
-        return view('products.edit', compact('product', 'categories'));
+        return response()->json($product);
     }
 
+    /**
+     * Update a specific product by ID.
+     */
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -60,18 +64,23 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        $this->productService->updateProduct($id, $validated);
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully!');
+        $product = $this->productService->updateProduct($id, $validated);
+        return response()->json(['message' => 'Product updated successfully!', 'product' => $product]);
     }
 
-
+    /**
+     * Delete a specific product by ID.
+     */
     public function destroy($id)
     {
         $this->productService->deleteProduct($id);
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully!');
+        return response()->json(['message' => 'Product deleted successfully!']);
     }
 
-    public function filterProducts(Request $request)
+    /**
+     * Filter products.
+     */
+    public function filter(Request $request)
     {
         $searchTerm = $request->input('searchTerm');
         $categoryId = $request->input('category');

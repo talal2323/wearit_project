@@ -62,6 +62,8 @@ class CategoryController extends Controller
     
         // Delete the category
         $category->delete();
+
+        \DB::statement('ALTER TABLE categories AUTO_INCREMENT = 1');
     
         // Redirect to the categories index with a success message
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
