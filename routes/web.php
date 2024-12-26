@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\API\ProductApiController;
-
 
 Route::get('/', [PageController::class, 'index']);       // Home route
 Route::get('/product', [PageController::class, 'product']);  // Product page route
