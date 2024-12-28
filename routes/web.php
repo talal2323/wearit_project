@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Models\Product;
 
+
+
 Route::get('/', [PageController::class, 'index']);       // Home route
 Route::get('/product', [PageController::class, 'product']);  // Product page route
 Route::get('/contact', [PageController::class, 'contact']);  // Contact page route
@@ -27,7 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 
-    
+
     
     // Category routes
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
