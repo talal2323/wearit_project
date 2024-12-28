@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 
     
+    
     // Category routes
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
