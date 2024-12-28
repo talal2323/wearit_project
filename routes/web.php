@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Models\Product;
 
 Route::get('/', [PageController::class, 'index']);       // Home route
 Route::get('/product', [PageController::class, 'product']);  // Product page route
@@ -45,6 +46,20 @@ Route::prefix('products')->group(function () {
     Route::post('/filter', [ProductApiController::class, 'filter']);
 });
 
+
+Route::get('/search-products', function (Illuminate\Http\Request $request) {
+    $query = $request->query('query', '');
+    
+    $products = Product::where('name', 'like', '%' . $query . '%')
+        ->orWhereHas('category', function ($q) use ($query) {
+            $q->where('name', 'like', '%' . $query . '%');
+        })
+        ->get();
+
+    return response()->json([
+        'products' => $products,
+    ]);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

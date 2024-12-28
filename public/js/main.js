@@ -23,50 +23,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('searchInput');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const recipeContainer = document.getElementById('recipeContainer');
+    const searchBar = document.getElementById('search-bar');
+    const searchResults = document.getElementById('search-results');
 
-    searchInput.addEventListener('input', filterRecipes);
-    categoryFilter.addEventListener('change', filterRecipes);
+    // Event listener for search bar input
+    searchBar.addEventListener('input', function () {
+        const query = searchBar.value.trim();
 
-    function filterRecipes() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const selectedCategory = categoryFilter.value;
+        if (query.length > 0) {
+            // AJAX request to fetch search results
+            fetch(`/search-products?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous results
+                    searchResults.innerHTML = '';
 
-        // Send an AJAX request to the server
-        fetch('/filter-recipes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({
-                searchTerm: searchTerm,
-                category: selectedCategory,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Clear the current recipe cards
-                recipeContainer.innerHTML = '';
+                    // Check if there are results
+                    if (data.products.length > 0) {
+                        data.products.forEach(product => {
+                            const li = document.createElement('li');
+                            li.className = 'dropdown-item';
+                            li.innerHTML = `
+                                <img src="/images/${product.image}" alt="${product.name}" style="width: 40px; height: 40px; margin-right: 10px;">
+                                <span>${product.name}</span> - $${product.price}
+                            `;
+                            searchResults.appendChild(li);
+                        });
 
-                // Loop through the filtered data and render recipe cards
-                data.forEach(item => {
-                    const card = `
-                        <div class="col-md-4 mb-4 recipe-card" data-category="${item.category_id}">
-                            <div class="card">
-                                <img src="${item.image}" class="card-img-top" alt="${item.name}">
-                                <div class="card-body">
-                                    <h5 class="card-title"><strong>${item.name}</strong></h5>
-                                    <p class="card-text"><strong>Price:</strong> RS ${item.price}/-</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    recipeContainer.insertAdjacentHTML('beforeend', card);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-    }
+                        searchResults.style.display = 'block';
+                    } else {
+                        searchResults.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error fetching search results:', error));
+        } else {
+            searchResults.style.display = 'none';
+        }
+    });
 });

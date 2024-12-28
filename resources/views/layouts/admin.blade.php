@@ -15,7 +15,7 @@
 
 <nav class="navbar navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">WearIT</a>
+   <h3> <a class="navbar-brand" href="#">WearIT</a></h3>
     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
     <a class="nav-link" href="{{ route('admin.products.index') }}">Products</a>
     <a class="nav-link" href="{{ route('admin.categories.index') }}">Category</a>
