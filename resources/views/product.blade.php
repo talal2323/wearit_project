@@ -5,15 +5,23 @@
     <br>
 
     <!-- Search Bar -->
-    <div class="search-bar-container" style="position: relative;">
+    <div class="search-bar-container">
         <input type="text" id="search-bar" class="form-control" placeholder="Search by Name" autocomplete="off">
-        <ul id="search-results" class="dropdown-menu" style="position: absolute; width: 100%; z-index: 1000; display: none;">
-            <!-- Search results will appear here -->
-        </ul>
     </div>
 
     <br>
 
+    <!-- Search Results Section -->
+    <div id="search-results-container" class="mt-4" style="display: none;">
+        <h4>Search Results:</h4>
+        <div class="row" id="search-results">
+            <!-- Search results will appear here -->
+        </div>
+        <br>
+        <h4>Other Products:</h4>
+    </div>
+
+    <br>
     <!-- Products Section -->
     <ul class="nav nav-tabs" id="productTabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -24,15 +32,13 @@
         </li>
     </ul>
 
-    <!-- Products content will be dynamically handled by JS and AJAX -->
-
     <!-- Tab Content -->
     <div class="tab-content" id="productTabsContent">
         <!-- Men Products -->
         <div class="tab-pane fade show active" id="men-section" role="tabpanel" aria-labelledby="men-tab">
             <div class="row mt-4">
                 @foreach($menProducts as $product)
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3 product-card" data-name="{{ strtolower($product->name) }}">
                         <div class="card">
                             <img src="{{ asset('images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body">
@@ -54,7 +60,7 @@
         <div class="tab-pane fade" id="women-section" role="tabpanel" aria-labelledby="women-tab">
             <div class="row mt-4">
                 @foreach($womenProducts as $product)
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3 product-card" data-name="{{ strtolower($product->name) }}">
                         <div class="card">
                             <img src="{{ asset('images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body">

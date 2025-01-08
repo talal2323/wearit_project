@@ -5,7 +5,7 @@ use App\Http\Controllers\API\ProductApiController;
 use App\Http\Controllers\AuthController;
 
 
-Route::prefix('products')->group(function () {
+Route::middleware('auth:api')->prefix('products')->group(function () {
     Route::get('/', [ProductApiController::class, 'index']);
     Route::post('/', [ProductApiController::class, 'store']);
     Route::get('/{id}', [ProductApiController::class, 'show']);
